@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:id="@+id/noteEditLayout"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@drawable/rectangle_round_gray_2dp"
+              android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/titleLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#FFF" android:elevation="8dp"
+        android:layout_gravity="center_horizontal">
+
+        <EditText
+            android:id="@+id/titleEditText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:gravity="center"
+            android:layout_margin="6dp"
+            android:hint="@string/fragment_event_hint_title"
+            android:singleLine="true"
+            android:background="@drawable/rectangle_round_white_2dp"
+            android:padding="12dp"
+            android:minWidth="180dp"
+            android:textAppearance="?android:attr/textAppearanceMedium"/>
+
+        <ImageButton
+            style="@style/Base.Widget.AppCompat.Button.Borderless.Colored"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:src="@drawable/ic_done_black_48dp"
+            android:id="@+id/saveButton"
+            android:layout_centerVertical="true"
+            android:layout_alignParentEnd="true"
+            android:layout_margin="6dp"/>
+    </RelativeLayout>
+
+    <LinearLayout
+        android:nestedScrollingEnabled="true"
+        android:id="@+id/descriptionLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:orientation="vertical" android:elevation="8dp"
+        android:background="#FFF">
+
+        <LinearLayout
+            android:id="@+id/createdByLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:orientation="horizontal"
+            android:paddingRight="12dp"
+            android:paddingTop="12dp"
+            android:paddingBottom="12dp"
+            android:paddingLeft="12dp">
+
+            <TextView
+                android:id="@+id/createdByLabelTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="8dp"
+                android:text="@string/fragment_event_created_by"
+                android:textAppearance="?android:attr/textAppearanceMedium"/>
+
+            <EditText
+                android:id="@+id/createdByEditText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:enabled="false"
+                android:gravity="right"
+                android:text="User"
+                android:textAppearance="?android:attr/textAppearanceMedium"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/timeLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:orientation="horizontal"
+            android:paddingRight="12dp"
+            android:paddingBottom="12dp"
+            android:paddingLeft="12dp"
+            android:paddingTop="12dp"
+            >
+
+
+            <TextView
+                android:id="@+id/timeLabelTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="8dp"
+                android:text="@string/fragment_event_time"
+                android:textAppearance="?android:attr/textAppearanceMedium"/>
+
+            <EditText
+                android:id="@+id/timeEditText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:enabled="false"
+                android:gravity="right"
+                android:text="2000-01-01 12:00"
+                android:textAppearance="?android:attr/textAppearanceMedium"/>
+        </LinearLayout>
+    </LinearLayout>
+    <View
+        android:id="@+id/dividerTitleView"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/divider"
+        android:visibility="gone"
+        />
+
+
+    <ScrollView
+        android:id="@+id/contentScrollView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center_horizontal"
+        android:nestedScrollingEnabled="true"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        android:background="#FFF">
+
+        <LinearLayout
+            android:id="@+id/contentLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingBottom="72dp"
+            android:gravity="right">
+
+            <EditText
+                android:id="@+id/contentEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/fragment_event_hint_content"
+                android:nestedScrollingEnabled="true"
+                android:background="@drawable/rectangle_round_white_2dp"
+                android:padding="12dp"
+                android:layout_margin="12dp"
+                android:textAppearance="?android:attr/textAppearanceMedium"/>
+        </LinearLayout>
+    </ScrollView>
+
+
+</LinearLayout>

@@ -168,16 +168,16 @@ public class FragmentTimeTable extends Fragment implements OnComponentListener, 
                             ? R.drawable.ic_date_range_white_short_24dp
                             : R.drawable.ic_date_range_white_24dp);
                 break;
-            case R.id.event:
-                Log.d(TAG, "onOptionsItemSelected: " + (pager != null) + " : " + (plan != null) + " : " + (callbacks != null));
-                if (pager != null && plan != null && callbacks != null && !plan.getTimeTable().isEmpty()) {
-
-                    Calendar timeStart = plan.getTimeTable().getDayTable(pager.getCurrentItem()).getDate();
-                    Calendar timeEnd = (Calendar) timeStart.clone();
-                    timeEnd.add(Calendar.DAY_OF_YEAR, 1);
-                    callbacks.onComponentEvent(this, FragmentEvents.prepareFragmentEvents(timeStart, timeEnd, username), null);
-                }
-                break;
+//            case R.id.event:
+//                Log.d(TAG, "onOptionsItemSelected: " + (pager != null) + " : " + (plan != null) + " : " + (callbacks != null));
+//                if (pager != null && plan != null && callbacks != null && !plan.getTimeTable().isEmpty()) {
+//
+//                    Calendar timeStart = plan.getTimeTable().getDayTable(pager.getCurrentItem()).getDate();
+//                    Calendar timeEnd = (Calendar) timeStart.clone();
+//                    timeEnd.add(Calendar.DAY_OF_YEAR, 1);
+//                    callbacks.onComponentEvent(this, FragmentEvents.prepareFragmentEvents(timeStart, timeEnd, username), null);
+//                }
+//                break;
         }
         return super.onOptionsItemSelected(item);
     }

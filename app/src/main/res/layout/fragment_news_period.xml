@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="8dp">
+
+    <TextView
+        android:id="@+id/periodTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:text="Dziś"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:layout_marginBottom="6dp"
+        android:textColor="#E000"/>
+
+    <TextView
+        android:layout_width="135dp"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="@string/fragment_news_lessons"
+        android:id="@+id/textView4"
+        android:gravity="right"
+        android:layout_below="@+id/periodTextView"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="6dp"
+        />
+
+    <TextView
+        android:layout_width="135dp"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="0/0"
+        android:id="@+id/lessonsCountTextVIew"
+        android:layout_below="@+id/periodTextView"
+        android:layout_alignParentEnd="true"
+        />
+
+    <TextView
+        android:layout_width="135dp"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="@string/fragment_news_events"
+        android:id="@+id/textView9"
+        android:gravity="right"
+        android:layout_below="@+id/textView4"
+        android:layout_alignParentStart="true"
+        />
+
+    <TextView
+        android:layout_width="135dp"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="0/0"
+        android:id="@+id/eventsCountTextView"
+        android:layout_alignTop="@+id/textView9"
+        android:layout_alignParentEnd="true"
+        />
+</RelativeLayout>

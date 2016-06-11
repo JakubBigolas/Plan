@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             xmlns:app="http://schemas.android.com/apk/res-auto"
+             android:id="@+id/listLayout"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             android:layout_gravity="top"
+             android:background="#FFF"
+             android:orientation="vertical">
+
+    <ScrollView
+        android:id="@+id/scrollView"
+        android:nestedScrollingEnabled="true"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/timeToNowView"
+                android:layout_width="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="12dp"
+                android:layout_height="10dp"
+                android:layout_alignParentTop="true"
+                android:background="@color/timeToColor"
+                android:padding="4dp"
+                android:text="24:24"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="#0000"
+                android:singleLine="true"
+                android:visibility="visible"/>
+
+            <View
+                android:id="@+id/currentTimeView"
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_below="@+id/timeToNowView"
+                android:background="@drawable/gradient_time_table_current_time"
+                android:visibility="invisible"
+                android:contextClickable="false"/>
+
+            <LinearLayout
+                android:clickable="true"
+                android:id="@+id/linearLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_gravity="center_horizontal|top"
+                android:divider="@color/divider"
+                android:dividerHeight="1dp"
+                android:elevation="12dp"
+                android:minHeight="1dp"
+                android:orientation="vertical"/>
+
+        </RelativeLayout>
+
+    </ScrollView>
+
+</FrameLayout>

@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/lessonLayout"
+    style="@style/Base.Widget.AppCompat.Button.Borderless"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="0dp">
+
+    <View
+        android:id="@+id/eventIndicator"
+        android:layout_width="18dp"
+        android:layout_height="18dp"
+        android:background="@drawable/triangle_left_top_18px"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"/>
+
+    <TextView
+        android:id="@+id/roomTextView"
+        android:layout_width="52dp"
+        android:layout_height="52dp"
+        android:layout_centerVertical="true"
+        android:layout_margin="12dp"
+        android:background="@drawable/circle_time_table_row"
+        android:elevation="4dp"
+        android:gravity="center"
+        android:text="room"
+
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textColor="#FFF"/>
+
+    <TextView
+        android:id="@+id/typeTextView"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_alignBottom="@+id/roomTextView"
+        android:layout_alignEnd="@+id/roomTextView"
+        android:layout_marginBottom="-10dp"
+        android:layout_marginRight="-8dp"
+        android:background="@drawable/circle_time_table_row"
+        android:elevation="6dp"
+        android:gravity="center"
+        android:text="T"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textColor="#FFF"
+        />
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_toLeftOf="@+id/linearLayout2"
+        android:layout_toRightOf="@+id/roomTextView"
+        android:gravity="left|center_vertical"
+
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/subjectTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:singleLine="true"
+            android:text="title"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="#222"/>
+
+        <TextView
+            android:id="@+id/withTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:singleLine="true"
+            android:text="with"
+            android:textAppearance="?android:attr/textAppearanceMedium"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_margin="12dp"
+        android:id="@+id/linearLayout2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:gravity="center_vertical|center_horizontal"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/startTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="4dp"
+            android:text="00:00"
+            android:textAppearance="?android:attr/textAppearanceMedium"/>
+
+        <TextView
+            android:id="@+id/endTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="#FF6666"
+            android:padding="4dp"
+            android:text="24:24"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="#FFF"/>
+    </LinearLayout>
+
+</RelativeLayout>

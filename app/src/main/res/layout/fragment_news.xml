@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#FFF"
+                android:orientation="vertical">
+
+    <View
+        android:id="@+id/statusBarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="24dp"
+        android:background="?colorPrimary"/>
+
+    <android.support.design.widget.CoordinatorLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/coordinatorLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true"
+        app:statusBarBackground="?colorPrimary">
+
+
+        <android.support.design.widget.AppBarLayout
+            android:id="@+id/appBarLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:elevation="8dp"
+            android:fitsSystemWindows="true">
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="?colorPrimary"
+                android:elevation="12dp"
+                android:fitsSystemWindows="true"
+                android:gravity="center"
+                app:layout_scrollFlags="scroll|enterAlways"
+                app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+                app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+            </android.support.v7.widget.Toolbar>
+
+        </android.support.design.widget.AppBarLayout>
+
+            <ScrollView
+                app:layout_behavior="@string/appbar_scrolling_view_behavior"
+                android:nestedScrollingEnabled="true"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical">
+
+                        <TextView
+                            android:id="@+id/titleTextViwe"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:gravity="center"
+                            android:padding="12dp"
+                            android:text="@string/fragment_news_news"
+                            android:textAppearance="?android:attr/textAppearanceLarge"/>
+
+                        <ProgressBar
+                            android:id="@+id/progressBar"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:layout_centerVertical="true"
+                            android:padding="2dp"/>
+
+                    </RelativeLayout>
+
+                    <include
+                        android:id="@+id/thisDayLayout"
+                        layout="@layout/fragment_news_period"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="32dp"/>
+
+                    <include
+                        android:id="@+id/thisWeekLayout"
+                        layout="@layout/fragment_news_period"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="32dp"/>
+
+                    <include
+                        android:id="@+id/thisMonthLayout"
+                        layout="@layout/fragment_news_period"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="32dp"/>
+
+                </LinearLayout>
+            </ScrollView>
+
+    </android.support.design.widget.CoordinatorLayout>
+</RelativeLayout>

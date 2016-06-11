@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources >
+
+    <color name="timeToColor">#18000000</color>
+    <color name="timeFromColor">#0000</color>
+    <color name="breakColor">#2000</color>
+
+    <integer-array name="roomsColors">
+        <!--<item>0xFF000000</item>&lt;!&ndash;0&ndash;&gt;-->
+        <!--<item>0xFF</item>&lt;!&ndash;1&ndash;&gt;-->
+        <!--<item></item>&lt;!&ndash;2&ndash;&gt;-->
+        <!--<item></item>&lt;!&ndash;3&ndash;&gt;-->
+        <!--<item></item>&lt;!&ndash;4&ndash;&gt;-->
+        <!--<item></item>&lt;!&ndash;5&ndash;&gt;-->
+        <!--<item></item>&lt;!&ndash;6&ndash;&gt;-->
+        <!--<item></item>&lt;!&ndash;7&ndash;&gt;-->
+        <!--<item></item>&lt;!&ndash;8&ndash;&gt;-->
+        <!--<item></item>&lt;!&ndash;9&ndash;&gt;-->
+        <item>0xFF44cc00</item><!--a-->
+        <item>0xFF0000cc</item><!--b-->
+        <item>0xFFcccc00</item><!--c-->
+        <item>0xFFe6e600</item><!--d-->
+        <item>0xFF0099cc</item><!--e-->
+        <item>0xFF6600cc</item><!--f-->
+        <item>0xFF003300</item><!--g-->
+        <item>0xFF800000</item><!--h-->
+        <item>0xFF000066</item><!--i-->
+        <item>0xFF99cc00</item><!--j-->
+        <item>0xFF999966</item><!--k-->
+        <item>0xFF00cc00</item><!--l-->
+        <item>0xFFff6600</item><!--m-->
+        <item>0xFF660033</item><!--n-->
+        <item>0xFF009999</item><!--o-->
+        <item>0xFF6600ff</item><!--p-->
+        <item>0xFFffff00</item><!--q-->
+        <item>0xFFFF00FF</item><!--r-->
+        <item>0xFF00FFFF</item><!--s-->
+        <item>0xFF00FF00</item><!--t-->
+        <item>0xFFFF0000</item><!--u-->
+        <item>0xFF0000FF</item><!--v-->
+        <item>0xFF888800</item><!--w-->
+        <item>0xFF884444</item><!--x-->
+        <item>0xFF448844</item><!--y-->
+        <item>0xFF444488</item><!--z-->
+
+
+
+        <!--<item>0xFF99FFFF</item>&lt;!&ndash;a&ndash;&gt;-->
+        <!--<item>0xFF99CCFF</item>&lt;!&ndash;b&ndash;&gt;-->
+        <!--<item>0xFF9999FF</item>&lt;!&ndash;c&ndash;&gt;-->
+        <!--<item>0xFF9999CC</item>&lt;!&ndash;d&ndash;&gt;-->
+        <!--<item>0xFF9966FF</item>&lt;!&ndash;e&ndash;&gt;-->
+        <!--<item>0xFF9933FF</item>&lt;!&ndash;f&ndash;&gt;-->
+        <!--<item>0xFF9900FF</item>&lt;!&ndash;g&ndash;&gt;-->
+        <!--<item>0xFF00FFFF</item>&lt;!&ndash;h&ndash;&gt;-->
+        <!--<item>0xFF00CCCC</item>&lt;!&ndash;i&ndash;&gt;-->
+        <!--<item>0xFF99cc00</item>&lt;!&ndash;j&ndash;&gt;-->
+        <!--<item>0xFF0099FF</item>&lt;!&ndash;k&ndash;&gt;-->
+        <!--<item>0xFF0099CC</item>&lt;!&ndash;l&ndash;&gt;-->
+        <!--<item>0xFF0066FF</item>&lt;!&ndash;m&ndash;&gt;-->
+        <!--<item>0xFF0066CC</item>&lt;!&ndash;n&ndash;&gt;-->
+        <!--<item>0xFF0033FF</item>&lt;!&ndash;o&ndash;&gt;-->
+        <!--<item>0xFF0033CC</item>&lt;!&ndash;p&ndash;&gt;-->
+        <!--<item>0xFF0000FF</item>&lt;!&ndash;q&ndash;&gt;-->
+        <!--<item>0xFF0000CC</item>&lt;!&ndash;r&ndash;&gt;-->
+        <!--<item>0xFF000099</item>&lt;!&ndash;s&ndash;&gt;-->
+        <!--<item>0xFFCCCCFF</item>&lt;!&ndash;t&ndash;&gt;-->
+        <!--<item>0xFFCC99FF</item>&lt;!&ndash;u&ndash;&gt;-->
+        <!--<item>0xFF33CCCC</item>&lt;!&ndash;v&ndash;&gt;-->
+        <!--<item>0xFF3399FF</item>&lt;!&ndash;w&ndash;&gt;-->
+        <!--<item>0xFF3333FF</item>&lt;!&ndash;x&ndash;&gt;-->
+        <!--<item>0xFF3300FF</item>&lt;!&ndash;y&ndash;&gt;-->
+        <!--<item>0xFF6666FF</item>&lt;!&ndash;z&ndash;&gt;-->
+
+
+
+
+    </integer-array>
+
+
+</resources>

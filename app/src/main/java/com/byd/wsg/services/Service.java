@@ -555,6 +555,8 @@ public class Service extends android.app.Service {
         }
     }
 
+
+
     private Calendar resetTimeToEnd(Calendar c){
         c = resetTime(c);
         c.add(Calendar.DAY_OF_MONTH, 1);

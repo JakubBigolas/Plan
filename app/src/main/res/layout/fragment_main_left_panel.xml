@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="#FFF"
+              android:id="@+id/panelLayout"
+              android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:layout_gravity="center_horizontal"
+        android:background="@color/colorAccent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/gradient_fragment_main_panel_left_header"
+            android:padding="8dp">
+
+            <TextView
+                android:id="@+id/groupTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentStart="true"
+                android:text="1 3inż1 SD byd 1L"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="#FFF"/>
+
+            <TextView
+                android:id="@+id/nameTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/groupTextView"
+                android:layout_alignParentStart="true"
+                android:text="Imię Nazwisko"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="#FFF"/>
+
+            <Button
+                android:id="@+id/logoutButton"
+                style="@style/Base.Widget.AppCompat.Button.Borderless"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="0dp"
+                android:text="Wyloguj"
+                android:textColor="#FFF"
+                android:layout_marginLeft="0dp"
+                android:layout_marginRight="0dp"
+                android:layout_marginTop="20dp"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"/>
+        </RelativeLayout>
+    </RelativeLayout>
+
+    <ScrollView
+        android:id="@+id/scrollView2"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                style="@style/Base.Widget.AppCompat.Button.Borderless"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:id="@+id/menuControlLayout"
+                android:layout_marginTop="12dp"
+                android:gravity="left"
+                android:padding="0dp">
+
+                <View
+                    android:id="@+id/view1"
+                    android:layout_width="6dp"
+                    android:layout_height="match_parent"
+                    android:background="#888"/>
+
+                <TextView
+                    android:id="@+id/textView5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="26dp"
+                    android:text="Menu główne"
+                    android:textAppearance="?android:attr/textAppearanceMedium"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                style="@style/Base.Widget.AppCompat.Button.Borderless"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginTop="12dp"
+                android:gravity="left"
+                android:id="@+id/planControlLayout"
+                android:padding="0dp">
+
+
+                <View
+                    android:id="@+id/view2"
+                    android:layout_width="6dp"
+                    android:layout_height="match_parent"
+                    android:background="#F40"/>
+
+
+                <TextView
+                    android:id="@+id/textView6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="26dp"
+                    android:text="Plan"
+                    android:textAppearance="?android:attr/textAppearanceMedium"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                style="@style/Base.Widget.AppCompat.Button.Borderless"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginTop="12dp"
+                android:gravity="left"
+                android:id="@+id/eventsControlLayout"
+                android:padding="0dp">
+
+
+                <View
+                    android:id="@+id/view3"
+                    android:layout_width="6dp"
+                    android:layout_height="match_parent"
+                    android:background="#888"/>
+
+
+                <TextView
+                    android:id="@+id/textView7"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="26dp"
+                    android:text="Zdarzenia"
+                    android:textAppearance="?android:attr/textAppearanceMedium"/>
+
+            </RelativeLayout>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

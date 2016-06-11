@@ -1,0 +1,56 @@
+<resources>
+    <string name="app_name">Plany</string>
+
+    <string name="day_off">Wolne</string>
+
+    <string name="menu_switch_short_fully_time_table">Plan pełny/skrócony</string>
+    <string name="menu_event">Notatki</string>
+
+    <string name="fragment_event_created_by">Utworzył: </string>
+    <string name="fragment_event_time">Termin: </string>
+    <string name="fragment_event_hint_title">Tytuł</string>
+    <string name="fragment_event_hint_content">Treść zdarzenia</string>
+    <string name="fragment_event_save">Zapisz</string>
+    <string name="fragment_event_error_save">Nie udało się zapisać</string>
+
+
+    <string name="fragment_login_title">Logowanie</string>
+    <string name="fragment_login_login">Login</string>
+    <string name="fragment_login_password">Hasło</string>
+    <string name="fragment_login_rememberme">Zapamiętaj</string>
+    <string name="fragment_login_confirm">Loguj</string>
+    <string name="fragemnt_login_cancel">Anuluj</string>
+    <string name="fragment_news_news">Aktualności</string>
+    <string name="fragment_news_lessons">Zajęcia</string>
+    <string name="fragment_news_events">Zdarzenia</string>
+    <string name="fragment_events_detail_delete">Usuń</string>
+    <string name="fragment_news_toolbar_refresh">Odśwież</string>
+    <string name="fragment_news_toolbar_exit">Wyjśćie</string>
+    <string name="fragment_events_toolbar_title">Zdarzenia</string>
+    <string name="fragment_events_deleted_correctly">Usunięto</string>
+    <string name="fragment_events_deleted_incorrectly">Nie powiodło się</string>
+    <string name="fragment_events_date_picker_next">Dalej</string>
+    <string name="fragment_events_cancel">Anuluj</string>
+    <string name="fragment_events_time_picker_next">Utwórz</string>
+    <string name="fragment_events_detail_save_correctly">Zapisano</string>
+    <string name="fragment_events_detail_save_incorrectly">Nie powiodło się</string>
+    <string name="service_internet_access_error">Brak połączenia</string>
+    <string name="service_io_error">Bląd pobieranai danych</string>
+    <string name="service_unexpected_error">Błąd</string>
+    <string name="service_authentication_failed">Brak uprawnień</string>
+    <string name="service_timeout">Przekroczono czas żądania</string>
+    <string name="service_unauthorized_error">Nipoprawna autoryzacja</string>
+    <string name="service_notif_title">Plany</string>
+    <string name="fragment_news_this_day">Dziś</string>
+    <string name="fragment_news_this_week">Ten tydzień</string>
+    <string name="fragment_news_this_month">Ten miesiąc</string>
+    <string name="fragment_news_toolbar_title">Menu główne</string>
+    <string name="fragment_plan_toolbar_title">Plan</string>
+
+
+
+
+
+
+
+</resources>

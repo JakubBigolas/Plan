@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:orientation="vertical"
+              >
+
+    <View
+        android:id="@+id/statusBarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="24dp"
+        android:background="?colorPrimary"/>
+
+    <android.support.design.widget.CoordinatorLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/coordinatorLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true"
+        app:statusBarBackground="?colorPrimary">
+
+
+        <android.support.design.widget.AppBarLayout
+            android:id="@+id/appBarLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:elevation="8dp"
+            android:fitsSystemWindows="true">
+
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="?colorPrimary"
+                android:elevation="12dp"
+                android:fitsSystemWindows="true"
+                app:layout_scrollFlags="scroll|enterAlways"
+                app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+                android:gravity="center"
+                app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+            </android.support.v7.widget.Toolbar>
+        </android.support.design.widget.AppBarLayout>
+
+
+        <android.support.v4.view.ViewPager
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/viewPager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+            <android.support.v4.view.PagerTabStrip
+                android:id="@+id/pagerTabStrip"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="top"
+                android:background="?colorPrimary"
+                android:paddingBottom="5dp"
+                android:paddingTop="5dp"
+                android:textColor="#FFF"/>
+        </android.support.v4.view.ViewPager>
+
+
+    </android.support.design.widget.CoordinatorLayout>
+</RelativeLayout>
