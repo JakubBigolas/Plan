@@ -5,10 +5,14 @@ import android.animation.ObjectAnimator;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.DialogFragment;
+import android.app.Fragment;
+import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-
+import android.support.v7.app.AppCompatActivity;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,15 +30,16 @@ import com.byd.wsg.model.OnComponentListener;
 import com.byd.wsg.model.SQLiteHelper;
 import com.byd.wsg.model.Tools;
 import com.byd.wsg.plany.R;
+import com.codetroopers.betterpickers.radialtimepicker.RadialTimePickerDialogFragment;
 
 import java.text.SimpleDateFormat;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * Created by Jakub on 2016-05-05.
+ * Created by Jakub on 2016-05-14.
  */
-public class FragmentEditEvent extends DialogFragment {
+public class FragmentEventsDetail extends Fragment {
 
     private LinearLayout
             noteEditLayout,
@@ -52,25 +57,31 @@ public class FragmentEditEvent extends DialogFragment {
             timeLabelTextView;
     private View
             v;
-    private Button saveButton;
-    private ImageButton additionalSaveButton;
+    private ImageButton saveButton;
     private ScrollView contentScrollView;
 
     private Event event = new Event();
 
-    OnComponentListener callbacks;
+    private String username;
 
-    private static final String TAG = "LOG-FragmentEditEvent";
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    OnComponentListener callbacks;
+    private int position;
+
+    private static final String TAG = "LOG-FragmentEventsDetail";
 
     public static final String
-            SET_CREATED_BY_FIELD_VISIBILITY = "FragmentEditEvent.SET_CREATED_BY_FIELD_VISIBILITY",
-            SET_TIME_FIELD_VISIBILITY = "FragmentEditEvent.SET_TIME_FIELD_VISIBILITY",
-            SET_DESCRIPTION_LAYOUT_VISIBILITY = "FragmentEditEvent.SET_DESCRIPTION_LAYOUT_VISIBILITY",
-            SET_CREATED_BY_FIELD_ENABLED = "FragmentEditEvent.SET_CREATED_BY_FIELD_ENABLED",
-            SET_TIME_FIELD_ENABLED = "FragmentEditEvent.SET_TIME_FIELD_ENABLED",
-            SET_TITLE_FIELD_ENABLED = "FragmentEditEvent.SET_TITLE_FIELD_ENABLED",
-            SET_CONTENT_FIELD_ENABLED = "FragmentEditEvent.SET_CONTENT_FIELD_ENABLED",
-            SET_EVENT = "FragmentEditEvent.SET_EVENT";
+            SET_POSITION = "FragmentEventsDetail.SET_POSITION",
+            SET_CREATED_BY_FIELD_VISIBILITY = "FragmentEventsDetail.SET_CREATED_BY_FIELD_VISIBILITY",
+            SET_TIME_FIELD_VISIBILITY = "FragmentEventsDetail.SET_TIME_FIELD_VISIBILITY",
+            SET_DESCRIPTION_LAYOUT_VISIBILITY = "FragmentEventsDetail.SET_DESCRIPTION_LAYOUT_VISIBILITY",
+            SET_CREATED_BY_FIELD_ENABLED = "FragmentEventsDetail.SET_CREATED_BY_FIELD_ENABLED",
+            SET_TIME_FIELD_ENABLED = "FragmentEventsDetail.SET_TIME_FIELD_ENABLED",
+            SET_TITLE_FIELD_ENABLED = "FragmentEventsDetail.SET_TITLE_FIELD_ENABLED",
+            SET_CONTENT_FIELD_ENABLED = "FragmentEventsDetail.SET_CONTENT_FIELD_ENABLED";
 
 
     @Override
@@ -80,10 +91,17 @@ public class FragmentEditEvent extends DialogFragment {
         super.onAttach(activity);
     }
 
+    @Override
+    public void onAttach(Context context) {
+        if (context instanceof OnComponentListener)
+            callbacks = (OnComponentListener) context;
+        super.onAttach(context);
+    }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        v = inflater.inflate(R.layout.fragment_event_edit, container, false);
+        v = inflater.inflate(R.layout.fragment_events_detail, container, false);
 
         noteEditLayout = (LinearLayout) v.findViewById(R.id.noteEditLayout);
         descriptionLayout = (LinearLayout) v.findViewById(R.id.descriptionLayout);
@@ -96,8 +114,7 @@ public class FragmentEditEvent extends DialogFragment {
         createdByLabelTextView = (TextView) v.findViewById(R.id.createdByLabelTextView);
         timeLabelTextView = (TextView) v.findViewById(R.id.timeLabelTextView);
         contentScrollView = (ScrollView) v.findViewById(R.id.contentScrollView);
-        saveButton = (Button) v.findViewById(R.id.saveButton);
-        additionalSaveButton = (ImageButton) v.findViewById(R.id.additionalSaveButton);
+        saveButton = (ImageButton) v.findViewById(R.id.saveButton);
         contentLayout = (LinearLayout) v.findViewById(R.id.contentLayout);
 
         return v;
@@ -106,10 +123,13 @@ public class FragmentEditEvent extends DialogFragment {
     @Override
     public void onCreate(@Nullable Bundle state) {
         super.onCreate(state);
+        if (getActivity() instanceof OnComponentListener)
+            callbacks = (OnComponentListener) getActivity();
         if (state == null)
             state = getArguments();
         if (state != null) {
-            event = (Event) Tools.loadDeserializedObjectLogged(state, SET_EVENT, event, TAG);
+            position = state.getInt(SET_POSITION, position);
+            edited = state.getBoolean("edited", false);
         }
     }
 
@@ -118,6 +138,12 @@ public class FragmentEditEvent extends DialogFragment {
         super.onActivityCreated(state);
         if (state == null)
             state = getArguments();
+
+        if (callbacks != null)
+            callbacks.onComponentEvent(this, position, null);
+        if (event == null)
+            event = new Event();
+
         if (state != null) {
             createdbyLayout.setVisibility(state.getBoolean(SET_CREATED_BY_FIELD_VISIBILITY, false) ? View.VISIBLE : View.GONE);
             timeLayout.setVisibility(state.getBoolean(SET_TIME_FIELD_VISIBILITY, false) ? View.VISIBLE : View.GONE);
@@ -130,7 +156,7 @@ public class FragmentEditEvent extends DialogFragment {
         } else {
             createdbyLayout.setVisibility(View.GONE);
         }
-        additionalSaveButton.setVisibility(View.GONE);
+        saveButton.setVisibility(edited ? View.VISIBLE : View.GONE);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             titleEditText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
@@ -164,38 +190,109 @@ public class FragmentEditEvent extends DialogFragment {
             contentEditText.setTranslationZ(contentEditText.hasFocus() ? 8 : 0);
         }
 
-        contentScrollView.getViewTreeObserver().addOnScrollChangedListener(contentScrollListener);
-        saveButton.setOnClickListener(onSaveListener);
-        additionalSaveButton.setOnClickListener(onSaveListener);
-
-        refreshView();
-        showOrHideAdditionalSaveButton();
+        showOrHideSaveButton();
+        saveButton.setOnClickListener(onSave);
+        contentScrollView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                contentEditText.requestFocus();
+            }
+        });
     }
 
-    private ObjectAnimator additionalSaveButtonAnimation = new ObjectAnimator();
-    private int directAdditionalSaveButtonAnimation = 0;
+    @Override
+    public void onResume() {
+        super.onResume();
+        v.setFitsSystemWindows(true);
+        refreshView();
+        if (!edited) {
+            contentEditText.addTextChangedListener(editWatcher);
+            titleEditText.addTextChangedListener(editWatcher);
+        }
+    }
 
-    private synchronized void showOrHideAdditionalSaveButton() {
+    @Override
+    public void onPause() {
+        contentEditText.removeTextChangedListener(editWatcher);
+        titleEditText.removeTextChangedListener(editWatcher);
+        super.onPause();
+    }
+
+    TextWatcher editWatcher = new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+        }
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+            edited = true;
+            contentEditText.removeTextChangedListener(this);
+            titleEditText.removeTextChangedListener(this);
+            showOrHideSaveButton();
+        }
+    };
+
+    View.OnClickListener onSave = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            Event.Helper helper = new Event.Helper(new SQLiteHelper(getActivity()), Event.Helper.TABLE_NAME);
+            try {
+                loadDataFromInterface();
+                Event temp = null;
+                if(event.getId() == Event.ID_NOT_STORED) {
+                    temp = helper.create(event);
+
+                    if (temp != null) {
+                        event = temp;
+                        if (callbacks != null)
+                            callbacks.onComponentEvent(FragmentEventsDetail.this, event, null);
+                    }
+                }
+                temp.setUser(username);
+                if (temp != null || helper.update(event)) {
+                    edited = false;
+                    contentEditText.addTextChangedListener(editWatcher);
+                    titleEditText.addTextChangedListener(editWatcher);
+                    showOrHideSaveButton();
+                    Tools.toast(getActivity(), getString(R.string.fragment_events_detail_save_correctly));
+                    return;
+                }
+            } catch (Throwable t) {
+                Log.d(TAG, "onClick: " + t.getLocalizedMessage());
+            }
+            Tools.toast(getActivity(), getString(R.string.fragment_events_detail_save_incorrectly));
+        }
+    };
+
+    private ObjectAnimator saveButtonAnimation = new ObjectAnimator();
+    private int directSaveButtonAnimation = 0;
+    private boolean edited = false;
+
+    private synchronized void showOrHideSaveButton() {
         if (v != null && v.getHeight() > 0) try {
-            if (contentScrollView.getHeight() + contentScrollView.getScrollY() < saveButton.getY() && directAdditionalSaveButtonAnimation != 1) {
-                directAdditionalSaveButtonAnimation = 1;
-                additionalSaveButtonAnimation.cancel();
-                additionalSaveButton.setVisibility(View.VISIBLE);
-                additionalSaveButtonAnimation = ObjectAnimator.ofFloat(additionalSaveButton, "alpha", additionalSaveButton.getAlpha(), 1f);
-                additionalSaveButtonAnimation.start();
-            } else if (!(contentScrollView.getHeight() + contentScrollView.getScrollY() < saveButton.getY()) && directAdditionalSaveButtonAnimation != 2) {
-                directAdditionalSaveButtonAnimation = 2;
-                additionalSaveButtonAnimation.cancel();
-                additionalSaveButtonAnimation = ObjectAnimator.ofFloat(additionalSaveButton, "alpha", additionalSaveButton.getAlpha(), 0f);
-                additionalSaveButtonAnimation.addListener(new Animator.AnimatorListener() {
+            if (edited) {
+                directSaveButtonAnimation = 1;
+                saveButtonAnimation.cancel();
+                saveButton.setVisibility(View.VISIBLE);
+                saveButtonAnimation = ObjectAnimator.ofFloat(saveButton, "alpha", saveButton.getAlpha(), 1f);
+                saveButtonAnimation.start();
+            } else {
+                directSaveButtonAnimation = 2;
+                saveButtonAnimation.cancel();
+                saveButtonAnimation = ObjectAnimator.ofFloat(saveButton, "alpha", saveButton.getAlpha(), 0f);
+                saveButtonAnimation.addListener(new Animator.AnimatorListener() {
                     @Override
                     public void onAnimationStart(Animator animation) {
-                        additionalSaveButton.setVisibility(View.VISIBLE);
+                        saveButton.setVisibility(View.VISIBLE);
                     }
 
                     @Override
                     public void onAnimationEnd(Animator animation) {
-                        additionalSaveButton.setVisibility(View.GONE);
+                        saveButton.setVisibility(View.GONE);
                     }
 
                     @Override
@@ -206,10 +303,10 @@ public class FragmentEditEvent extends DialogFragment {
                     public void onAnimationRepeat(Animator animation) {
                     }
                 });
-                additionalSaveButtonAnimation.start();
+                saveButtonAnimation.start();
             }
         } catch (Throwable t) {
-            Log.d(TAG, "showOrHideAdditionalSaveButton: " + t);
+            Log.d(TAG, "showOrHidesaveButton: " + t);
         }
     }
 
@@ -228,49 +325,19 @@ public class FragmentEditEvent extends DialogFragment {
      */
     public void setEvent(Event event) {
         this.event = event == null ? new Event() : event;
+        edited = this.event.getId() == Event.ID_NOT_STORED;
         refreshView();
     }
 
-    private ViewTreeObserver.OnScrollChangedListener contentScrollListener = new ViewTreeObserver.OnScrollChangedListener() {
-        @Override
-        public void onScrollChanged() {
-            showOrHideAdditionalSaveButton();
-        }
-    };
-
-    private View.OnClickListener onSaveListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            loadDataFromInterface();
-            try {
-                Event.Helper helper = new Event.Helper(new SQLiteHelper(getActivity()), Event.Helper.TABLE_NAME);
-                if (!helper.update(event)) {
-                    Event e = helper.create(event);
-                    if (e == null)
-                        Tools.toast(getActivity(), getResources().getString(R.string.fragment_event_error_save));
-                    else {
-                        event = e;
-                        dismiss();
-                        if (callbacks != null)
-                            callbacks.onComponentEvent(FragmentEditEvent.this, event, null);
-                    }
-                }
-            } catch (Throwable t) {
-                Log.d(TAG, "onSaveListener: " + t.getLocalizedMessage());
-                Tools.toast(getActivity(), getResources().getString(R.string.fragment_event_error_save));
-            }
-        }
-    };
-
-
     @Override
     public void onDestroyView() {
-//        titleEditText.setOnFocusChangeListener(null);
-//        contentEditText.setOnFocusChangeListener(null);
-//        saveButton.setOnClickListener(null);
-//        additionalSaveButton.setOnClickListener(null);
-//        contentScrollView.getViewTreeObserver().removeOnScrollChangedListener(contentScrollListener);
-//        v = null;
+        titleEditText.setOnFocusChangeListener(null);
+        titleEditText.removeTextChangedListener(editWatcher);
+        contentEditText.setOnFocusChangeListener(null);
+        contentEditText.removeTextChangedListener(editWatcher);
+        saveButton.setOnClickListener(null);
+
+        v = null;
 //        noteEditLayout = null;
 //        descriptionLayout = null;
 //        createdbyLayout = null;
@@ -283,7 +350,7 @@ public class FragmentEditEvent extends DialogFragment {
 //        timeLabelTextView = null;
 //        contentScrollView = null;
 //        saveButton = null;
-//        additionalSaveButton = null;
+
         super.onDestroyView();
     }
 
@@ -304,6 +371,17 @@ public class FragmentEditEvent extends DialogFragment {
                 Integer.parseInt(matcher.group(6))));
     }
 
+    public static FragmentEventsDetail prepareFragmentEventsDetail(int position) {
+        FragmentEventsDetail f = new FragmentEventsDetail();
+        Bundle args = new Bundle();
+        args.putInt(SET_POSITION, position);
+        args.putBoolean(SET_TIME_FIELD_VISIBILITY, true);
+        args.putBoolean(SET_TIME_FIELD_ENABLED, false);
+        args.putBoolean(SET_DESCRIPTION_LAYOUT_VISIBILITY, true);
+        f.setArguments(args);
+        return f;
+    }
+
     @Override
     public void onSaveInstanceState(Bundle state) {
         super.onSaveInstanceState(state);
@@ -314,7 +392,8 @@ public class FragmentEditEvent extends DialogFragment {
         state.putBoolean(SET_TIME_FIELD_ENABLED, timeEditText.isEnabled());
         state.putBoolean(SET_TITLE_FIELD_ENABLED, titleEditText.isEnabled());
         state.putBoolean(SET_CONTENT_FIELD_ENABLED, contentEditText.isEnabled());
-        Tools.saveSerializedObjectLogged(event, state, SET_EVENT, TAG);
+        state.putBoolean("edited", edited);
+        state.putInt(SET_POSITION, position);
         Tools.saveParcelcableObject(contentScrollView, state, "contentScrollView");
     }
 }

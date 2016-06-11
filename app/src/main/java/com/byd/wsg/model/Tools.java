@@ -33,6 +33,10 @@ public class Tools {
         Toast.makeText(context, msg.toString(), Toast.LENGTH_SHORT).show();
     }
 
+    public static void toastRs(Context context, int stringRes){
+        Toast.makeText(context, context.getString(stringRes), Toast.LENGTH_SHORT).show();
+    }
+
     /**
      * @param o
      * @param state

@@ -1,5 +1,7 @@
 package com.byd.wsg.fragments;
 
+import android.app.Fragment;
+import android.app.FragmentManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -9,8 +11,6 @@ import android.graphics.drawable.GradientDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,6 +25,7 @@ import com.byd.wsg.com.wsg.byd.plan.DayTable;
 import com.byd.wsg.com.wsg.byd.plan.Event;
 import com.byd.wsg.com.wsg.byd.plan.Interval;
 import com.byd.wsg.com.wsg.byd.plan.Lesson;
+import com.byd.wsg.model.OnComponentListener;
 import com.byd.wsg.model.SQLiteHelper;
 import com.byd.wsg.model.Tools;
 import com.byd.wsg.plany.R;
@@ -47,15 +48,18 @@ public class FragmentTimeTableList extends Fragment {
             currentTimeView;
     private int accentColor, timeToNowColor, timeFromNowColor, breakColor;
     private ScrollView scrollView;
+    private int position;
+    OnComponentListener callbacks;
 
-    private FragmentEditEvent fragmentEditEvent;
+
+//    private FragmentEditEvent fragmentEditEvent;
 
     private String username = "";
 
     public static final String
-            ARG_DAY_TABLE = "FragmentTimeTableList.ARG_DAY_TABLE",
             TAG = "LOG-FragmentTimeTableL.",
-            SET_USERNAME = "FragmentTimeTableList.SET_USERNAME";
+            SET_USERNAME = "FragmentTimeTableList.SET_USERNAME",
+            SET_POSITION = "FragmentTimeTableList.SET_POSITION";
 
     BroadcastReceiver changeTimeReceiver = new BroadcastReceiver() {
         @Override
@@ -64,6 +68,13 @@ public class FragmentTimeTableList extends Fragment {
             refreshView();
         }
     };
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if (context instanceof OnComponentListener)
+            callbacks = (OnComponentListener) context;
+    }
 
     @Override
     public void onResume() {
@@ -85,18 +96,14 @@ public class FragmentTimeTableList extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle state) {
         super.onCreate(state);
+        Log.d(TAG, "onCreate: " + (dayTable != null));
+        if (getActivity() instanceof OnComponentListener)
+            callbacks = (OnComponentListener) getActivity();
         if (state == null)
             state = getArguments();
         if (state != null) {
-            try {
-                dayTable = (DayTable) Tools.loadDeserializedObject(state, ARG_DAY_TABLE);
-                username = state.getString(SET_USERNAME, username);
-            } catch (Throwable t) {
-                throw new RuntimeException(t);
-            }
-            Log.d(TAG, "onCreate: " + (dayTable != null));
-            if (dayTable == null)
-                dayTable = new DayTable();
+            username = state.getString(SET_USERNAME, username);
+            position = state.getInt(SET_POSITION);
         }
     }
 
@@ -110,6 +117,10 @@ public class FragmentTimeTableList extends Fragment {
         }
     }
 
+    public DayTable getDayTable() {
+        return dayTable;
+    }
+
     @Override
     public void onDestroyView() {
         Log.d(TAG, "onDestroyView: ");
@@ -117,6 +128,10 @@ public class FragmentTimeTableList extends Fragment {
         list = null;
         adapter = null;
         super.onDestroyView();
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     @Nullable
@@ -134,6 +149,12 @@ public class FragmentTimeTableList extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle state) {
         super.onActivityCreated(state);
+
+        if (callbacks != null)
+            callbacks.onComponentEvent(this, position, null);
+        if (dayTable == null)
+            dayTable = new DayTable();
+
         Resources resources = getResources();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             Resources.Theme theme = getActivity().getTheme();
@@ -149,13 +170,16 @@ public class FragmentTimeTableList extends Fragment {
         refreshList();
         Tools.restoreParcelableObject(scrollView, state, "list");
 
-        FragmentManager f = getChildFragmentManager();
-        fragmentEditEvent = (FragmentEditEvent) f.findFragmentByTag("dialogAddNote");
-        if (fragmentEditEvent == null)
-            fragmentEditEvent = new FragmentEditEvent();
+//        FragmentManager f = getChildFragmentManager();
+//        fragmentEditEvent = (FragmentEditEvent) f.findFragmentByTag("dialogAddNote");
+//        if (fragmentEditEvent == null)
+//            fragmentEditEvent = new FragmentEditEvent();
 
+        if (callbacks != null)
+            callbacks.onComponentEvent(this, position, null);
         Log.d(TAG, "onActivityCreated: " + super.toString());
     }
+
 
     private void refreshList() {
         list.removeAllViews();
@@ -227,10 +251,10 @@ public class FragmentTimeTableList extends Fragment {
         }
     }
 
-    public static FragmentTimeTableList prepareFragment(DayTable dayTable) {
+    public static FragmentTimeTableList prepareFragment(int position) {
         FragmentTimeTableList result = new FragmentTimeTableList();
         Bundle args = new Bundle();
-        Tools.saveSerializedObjectLogged(dayTable, args, ARG_DAY_TABLE, TAG);
+        args.putInt(SET_POSITION, position);
         result.setArguments(args);
         return result;
     }
@@ -238,8 +262,8 @@ public class FragmentTimeTableList extends Fragment {
     @Override
     public void onSaveInstanceState(Bundle state) {
         Log.d(TAG, "onSaveInstanceState: ");
-        Tools.saveSerializedObjectLogged(dayTable, state, ARG_DAY_TABLE, TAG);
         Tools.saveParcelcableObject(list, state, "list");
+        state.putInt(SET_POSITION, position);
         super.onSaveInstanceState(state);
     }
 
@@ -350,6 +374,7 @@ public class FragmentTimeTableList extends Fragment {
                     v.setOnLongClickListener(new View.OnLongClickListener() {
                         @Override
                         public boolean onLongClick(View v) {
+                            FragmentEditEvent fragmentEditEvent = new FragmentEditEvent();
                             fragmentEditEvent.setEvent(new Event(username, startTime, "", ""));
                             fragmentEditEvent.show(getChildFragmentManager(), "dialogAddNote");
                             return true;

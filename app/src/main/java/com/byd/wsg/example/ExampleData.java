@@ -42,7 +42,7 @@ public class ExampleData {
 
 
         return new Plan(
-                new TimeTable(rtt.timetable),
+               null,// new TimeTable(rtt.timetable),
                 intervals
         );
     }
